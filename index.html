@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ujian Akhir Bahasa Indonesia — Paket B (55 Soal)</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --surface: #ffffff;
+    --surface2: #f0ede6;
+    --border: #e2ddd4;
+    --text: #1a1714;
+    --muted: #6b6560;
+    --accent: #1a6b4a;
+    --accent-light: #e8f4ee;
+    --accent2: #c17d2a;
+    --accent2-light: #fdf3e3;
+    --red: #b83232;
+    --red-light: #fdeaea;
+    --blue: #1e4f8c;
+    --blue-light: #e8eef8;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.04);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .site-header {
+    background: var(--accent);
+    color: #fff;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(26,107,74,0.25);
+  }
+  .header-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .header-left h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.3px;
+  }
+  .header-left p { font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 1px; }
+  .header-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .timer-badge {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 1px;
+  }
+  .timer-badge.warning { background: rgba(184,50,50,0.7); border-color: rgba(255,255,255,0.4); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+  .main-wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+    display: grid;
+    grid-template-columns: 224px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .sidebar { position: sticky; top: 72px; }
+  .sidebar-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+  }
+  .sidebar-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .prog-wrap { margin-bottom: 10px; }
+  .prog-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; }
+  .prog-row strong { font-weight: 600; color: var(--accent); }
+  .prog-bar { height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .prog-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.3s ease; }
+  .topic-nav { display: flex; flex-direction: column; gap: 4px; }
+  .topic-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: left;
+    transition: all 0.15s;
+    width: 100%;
+  }
+  .topic-btn:hover { background: var(--surface2); color: var(--text); }
+  .topic-btn.active { background: var(--accent-light); border-color: rgba(26,107,74,0.2); color: var(--accent); font-weight: 600; }
+  .topic-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .topic-count {
+    margin-left: auto; font-size: 10px;
+    background: var(--surface2);
+    padding: 2px 6px; border-radius: 10px; color: var(--muted);
+  }
+  .topic-btn.active .topic-count { background: rgba(26,107,74,0.15); color: var(--accent); }
+  .action-btns { display: flex; flex-direction: column; gap: 8px; }
+  .btn {
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    transition: all 0.15s;
+    text-align: center;
+    display: block;
+    width: 100%;
+    text-decoration: none;
+  }
+  .btn:hover { background: var(--surface2); }
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #155a3c; }
+  .btn-outline-red { border-color: var(--red); color: var(--red); }
+  .btn-outline-red:hover { background: var(--red-light); }
+  .btn-key { background: var(--accent2-light); border-color: rgba(193,125,42,0.3); color: var(--accent2); }
+  .btn-key:hover { background: #f5e8c8; }
+
+  /* Q GRID */
+  .q-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 4px;
+  }
+  .q-dot {
+    aspect-ratio: 1;
+    border-radius: 4px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 600; color: var(--muted);
+    cursor: pointer;
+    transition: all 0.1s;
+  }
+  .q-dot:hover { background: var(--accent-light); }
+  .q-dot.done { background: var(--accent-light); border-color: rgba(26,107,74,0.3); color: var(--accent); }
+  .q-dot.correct-dot { background: #d4edd9; border-color: #2e9e50; color: #1a6b2e; }
+  .q-dot.wrong-dot { background: #f5d5d5; border-color: var(--red); color: var(--red); }
+  .q-dot.skipped { background: var(--surface2); color: var(--muted); opacity: 0.6; }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 14px;
+    margin-top: 24px;
+    border-left: 4px solid;
+  }
+  .section-header:first-child { margin-top: 0; }
+  .section-header h2 { font-size: 14px; font-weight: 600; }
+  .section-header span { font-size: 12px; opacity: 0.7; margin-left: auto; }
+
+  /* Q CARD */
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    transition: border-color 0.2s;
+  }
+  .q-card.answered { border-color: rgba(26,107,74,0.35); }
+  .q-card.correct { border-color: #2e9e50; background: #f5fbf7; }
+  .q-card.wrong { border-color: #b83232; background: #fdf5f5; }
+  .q-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .q-num {
+    font-size: 11px; font-weight: 700;
+    background: var(--surface2); color: var(--muted);
+    padding: 3px 8px; border-radius: 20px;
+  }
+  .q-card.correct .q-num { background: #d4edd9; color: #1a6b2e; }
+  .q-card.wrong .q-num { background: #f5d5d5; color: var(--red); }
+  .q-status {
+    font-size: 11px; font-weight: 600;
+    padding: 3px 8px; border-radius: 20px; display: none;
+  }
+  .q-card.correct .q-status { display: inline; background: #d4edd9; color: #1a6b2e; }
+  .q-card.wrong .q-status { display: inline; background: #f5d5d5; color: var(--red); }
+  .q-card.skipped .q-status { display: inline; background: #e8e4dc; color: var(--muted); }
+  .q-text {
+    font-size: 14px; line-height: 1.75; color: var(--text);
+    margin-bottom: 14px; white-space: pre-wrap;
+  }
+  .q-text .excerpt {
+    background: var(--surface2);
+    border-left: 3px solid var(--border);
+    padding: 10px 14px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-style: italic; font-size: 13px; color: var(--muted);
+    display: block; margin: 8px 0;
+  }
+  .options { display: flex; flex-direction: column; gap: 7px; }
+  .opt {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer; font-size: 13px; color: var(--text);
+    transition: all 0.15s; line-height: 1.5; user-select: none;
+  }
+  .opt:hover { background: var(--surface2); border-color: #ccc; }
+  .opt.selected { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+  .opt.correct-opt { border-color: #2e9e50; background: #edf7ef; color: #1a6b2e; font-weight: 500; }
+  .opt.wrong-opt { border-color: var(--red); background: var(--red-light); color: var(--red); font-weight: 500; }
+  .opt-lbl { font-weight: 700; min-width: 20px; flex-shrink: 0; }
+  .opt-icon { margin-left: auto; font-size: 14px; display: none; }
+  .opt.correct-opt .opt-icon::after { content: "✓"; display: inline; color: #2e9e50; }
+  .opt.wrong-opt .opt-icon::after { content: "✗"; display: inline; color: var(--red); }
+  .opt.correct-opt .opt-icon, .opt.wrong-opt .opt-icon { display: inline; }
+
+  /* ANSWER KEY */
+  .key-table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .key-table-header {
+    background: var(--accent); color: #fff;
+    padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .key-table-header h2 { font-family: 'Playfair Display', serif; font-size: 16px; }
+  table.key-table { width: 100%; border-collapse: collapse; }
+  .key-table th {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    text-transform: uppercase; color: var(--muted);
+    background: var(--surface2);
+    padding: 10px 14px; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .key-table td {
+    padding: 10px 14px; font-size: 13px;
+    border-bottom: 1px solid var(--border); vertical-align: top;
+  }
+  .key-table tr:last-child td { border-bottom: none; }
+  .key-table tr:nth-child(even) td { background: #fafaf8; }
+  .key-ans {
+    display: inline-block; font-weight: 700;
+    background: var(--accent); color: #fff;
+    width: 24px; height: 24px; border-radius: 50%;
+    text-align: center; line-height: 24px; font-size: 12px;
+  }
+  .key-topic-badge {
+    display: inline-block; padding: 2px 8px;
+    border-radius: 20px; font-size: 11px; font-weight: 600;
+  }
+
+  /* RESULT */
+  .result-page {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 40px; text-align: center;
+  }
+  .score-ring {
+    width: 140px; height: 140px; border-radius: 50%;
+    border: 6px solid var(--accent);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .score-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px; font-weight: 700;
+    color: var(--accent); line-height: 1;
+  }
+  .score-max { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .result-title { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 6px; }
+  .result-msg { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+  .result-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 28px; }
+  .result-stat { background: var(--surface2); border-radius: var(--radius-sm); padding: 14px; }
+  .result-stat .val { font-size: 28px; font-weight: 700; font-family: 'Playfair Display', serif; }
+  .result-stat .lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .result-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .result-actions .btn { width: auto; padding: 10px 24px; }
+  .topic-breakdown { margin-top: 24px; text-align: left; }
+  .topic-breakdown h3 { font-size: 13px; font-weight: 600; margin-bottom: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .breakdown-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0; border-bottom: 1px solid var(--border);
+  }
+  .breakdown-row:last-child { border-bottom: none; }
+  .breakdown-name { font-size: 12px; font-weight: 500; min-width: 130px; }
+  .breakdown-bar-wrap { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .breakdown-bar { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+  .breakdown-pct { font-size: 12px; font-weight: 700; min-width: 36px; text-align: right; }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: #1a1714; color: #fff;
+    padding: 10px 20px; border-radius: 20px;
+    font-size: 13px; font-weight: 500;
+    opacity: 0; transition: all 0.3s; pointer-events: none; z-index: 999;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 700px) {
+    .main-wrap { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .q-grid { grid-template-columns: repeat(11, 1fr); }
+    .result-grid { grid-template-columns: repeat(3,1fr); }
+    .header-inner { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <h1>Ujian Akhir Bahasa Indonesia</h1>
+      <p>Paket B · 55 Soal · 6 Materi Pokok</p>
+    </div>
+    <div class="header-meta">
+      <span class="badge">55 Soal</span>
+      <span class="badge">90 Menit</span>
+      <span class="timer-badge" id="timer">90:00</span>
+    </div>
+  </div>
+</header>
+
+<div class="main-wrap">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">Progress Pengerjaan</div>
+      <div class="prog-wrap">
+        <div class="prog-row">
+          <span>Terjawab</span>
+          <strong id="prog-count">0 / 55</strong>
+        </div>
+        <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">Peta Soal</div>
+      <div class="q-grid" id="q-grid"></div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">Navigasi Materi</div>
+      <div class="topic-nav" id="topic-nav"></div>
+    </div>
+    <div class="sidebar-card">
+      <div class="action-btns">
+        <button class="btn btn-primary" id="submit-btn" onclick="confirmSubmit()">Kumpulkan Jawaban</button>
+        <button class="btn btn-key" onclick="showPage('key')">📋 Kunci Jawaban</button>
+        <button class="btn btn-outline-red" onclick="confirmReset()">Ulangi Ujian</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- QUIZ PAGE -->
+    <div class="page active" id="page-quiz">
+      <div id="questions-wrap"></div>
+    </div>
+
+    <!-- RESULT PAGE -->
+    <div class="page" id="page-result">
+      <div class="result-page">
+        <div class="score-ring">
+          <div class="score-num" id="r-score">0</div>
+          <div class="score-max">dari 100</div>
+        </div>
+        <div class="result-title" id="r-title">—</div>
+        <div class="result-msg" id="r-msg">—</div>
+        <div class="result-grid">
+          <div class="result-stat">
+            <div class="val" id="r-correct" style="color:#2e9e50">0</div>
+            <div class="lbl">Jawaban Benar</div>
+          </div>
+          <div class="result-stat">
+            <div class="val" id="r-wrong" style="color:var(--red)">0</div>
+            <div class="lbl">Jawaban Salah</div>
+          </div>
+          <div class="result-stat">
+            <div class="val" id="r-skip" style="color:var(--muted)">0</div>
+            <div class="lbl">Tidak Dijawab</div>
+          </div>
+        </div>
+        <div class="result-actions">
+          <button class="btn btn-primary" onclick="showReview()">📖 Lihat Pembahasan</button>
+          <button class="btn btn-key" onclick="showPage('key')">📋 Kunci Jawaban</button>
+          <button class="btn" onclick="confirmReset()">🔄 Ulangi Ujian</button>
+        </div>
+        <div class="topic-breakdown">
+          <h3>Hasil per Materi</h3>
+          <div id="breakdown-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANSWER KEY PAGE -->
+    <div class="page" id="page-key">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+        <div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:20px;">Kunci Jawaban</h2>
+          <p style="font-size:13px;color:var(--muted);margin-top:2px;">55 soal · Bahasa Indonesia Paket B</p>
+        </div>
+        <button class="btn" onclick="showPage('quiz')" style="width:auto;">← Kembali ke Soal</button>
+      </div>
+      <div class="key-table-wrap">
+        <div class="key-table-header">
+          <h2>Daftar Kunci Jawaban Lengkap</h2>
+          <span style="font-size:13px;opacity:0.8;">Bahasa Indonesia — Paket B</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="key-table" id="key-table">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Materi</th>
+                <th>Kunci</th>
+                <th>Jawaban yang Benar</th>
+              </tr>
+            </thead>
+            <tbody id="key-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px 16px;background:var(--accent2-light);border:1px solid rgba(193,125,42,0.25);border-radius:var(--radius-sm);font-size:13px;color:var(--accent2);">
+        <strong>Catatan guru:</strong> Kunci jawaban ini hanya untuk keperluan koreksi dan evaluasi. Bagikan kepada peserta didik setelah ujian selesai.
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const TOPICS = [
+  { name: "Gagasan Pokok & Pendukung", color: "#1a6b4a", bg: "#e8f4ee" },
+  { name: "Unsur-Unsur Wawancara",     color: "#1e4f8c", bg: "#e8eef8" },
+  { name: "Struktur Teks Prosedur",    color: "#c17d2a", bg: "#fdf3e3" },
+  { name: "Teks Pengalaman Pribadi",   color: "#7b3fa0", bg: "#f2e8fa" },
+  { name: "Struktur & Unsur Pidato",   color: "#b83232", bg: "#fdeaea" },
+  { name: "Unsur-Unsur Drama",         color: "#1a706b", bg: "#e3f4f3" }
+];
+
+const QUESTIONS = [
+
+  // ========================================================
+  // MATERI 1: GAGASAN POKOK & PENDUKUNG (Soal 1–10)
+  // ========================================================
+  {t:0, q:`Bacalah paragraf berikut dengan saksama!\n\n"Budi adalah siswa yang rajin dan berprestasi. Setiap hari ia bangun pukul 04.30 untuk belajar sebelum berangkat sekolah. Sepulang sekolah, ia tidak langsung bermain, melainkan mengulang pelajaran yang baru dipelajari. Berkat ketekunannya, Budi selalu masuk tiga besar di kelasnya."\n\nGagasan pokok paragraf di atas adalah ...`,
+   o:["Budi bangun pukul 04.30 setiap hari","Budi adalah siswa yang rajin dan berprestasi","Budi selalu masuk tiga besar di kelasnya","Budi mengulang pelajaran sepulang sekolah"], a:1},
+
+  {t:0, q:`Cermati paragraf berikut!\n\n"Sampah plastik menjadi masalah serius bagi lingkungan. Plastik yang dibuang sembarangan dapat mencemari tanah dan air. Hewan-hewan laut sering salah memakan plastik sehingga mengancam kelangsungan hidup mereka. Pemerintah pun telah mengeluarkan peraturan untuk mengurangi penggunaan plastik sekali pakai."\n\nKalimat yang merupakan gagasan pendukung pada paragraf di atas adalah ...`,
+   o:["Sampah plastik menjadi masalah serius bagi lingkungan","Plastik mencemari tanah dan air serta mengancam hewan laut","Masalah sampah plastik belum pernah ditangani pemerintah","Plastik adalah bahan yang sangat berguna bagi manusia"], a:1},
+
+  {t:0, q:`Perhatikan paragraf berikut!\n\n"Perpustakaan sekolah adalah tempat yang sangat bermanfaat bagi siswa. Di sana, siswa dapat membaca berbagai buku pelajaran. Selain itu, perpustakaan juga menyediakan buku cerita, majalah, dan kamus. Dengan rajin ke perpustakaan, wawasan siswa akan semakin luas."\n\nParagraf tersebut termasuk jenis paragraf ...`,
+   o:["Induktif, karena gagasan pokok di akhir","Deduktif, karena gagasan pokok di awal","Campuran, karena gagasan pokok di awal dan akhir","Naratif, karena berisi kisah seseorang"], a:1},
+
+  {t:0, q:`Bacalah teks berikut!\n\n"Pohon-pohon di sekitar rumah memberikan banyak manfaat. Udara menjadi lebih segar karena pohon menghasilkan oksigen. Di musim panas, pohon memberikan keteduhan. Akar pohon yang kuat juga mencegah terjadinya erosi tanah. Oleh karena itu, menanam pohon di sekitar rumah adalah kebiasaan yang sangat baik."\n\nGagasan pokok paragraf di atas terletak di ...`,
+   o:["Kalimat pertama saja (deduktif)","Kalimat terakhir saja (induktif)","Kalimat pertama dan terakhir (campuran)","Kalimat ketiga (di tengah paragraf)"], a:2},
+
+  {t:0, q:`Berikut ini pernyataan yang BENAR tentang hubungan gagasan pokok dan gagasan pendukung adalah ...`,
+   o:["Gagasan pendukung lebih penting dari gagasan pokok","Gagasan pokok bersifat umum, gagasan pendukung bersifat khusus dan memperjelas","Sebuah paragraf hanya boleh memiliki satu kalimat pendukung","Gagasan pokok selalu berada di tengah paragraf"], a:1},
+
+  {t:0, q:`Perhatikan paragraf berikut!\n\n"Indonesia memiliki kekayaan alam yang sangat melimpah. Hutan-hutannya menyimpan ribuan jenis flora dan fauna. Lautnya yang luas menjadi rumah bagi aneka ragam biota laut. Tanah subur di berbagai pulau mendukung kehidupan pertanian yang produktif."\n\nBerapa kalimat pendukung yang terdapat dalam paragraf tersebut?`,
+   o:["1 kalimat pendukung","2 kalimat pendukung","3 kalimat pendukung","4 kalimat pendukung"], a:2},
+
+  {t:0, q:`Bacalah paragraf berikut!\n\n"Kebiasaan membaca buku sangat penting untuk diterapkan sejak dini. Dengan membaca, seseorang dapat memperluas pengetahuannya. Membaca juga melatih kemampuan berpikir kritis dan analitis. Selain itu, membaca meningkatkan kemampuan menulis dan berbicara seseorang. Singkatnya, membaca adalah investasi terbaik untuk masa depan."\n\nGagasan pokok paragraf tersebut adalah ...`,
+   o:["Membaca melatih kemampuan berpikir kritis","Membaca adalah investasi terbaik","Kebiasaan membaca sangat penting diterapkan sejak dini","Membaca meningkatkan kemampuan menulis"], a:2},
+
+  {t:0, q:`Kalimat-kalimat berikut ini manakah yang merupakan kalimat GAGASAN POKOK?`,
+   o:["Ia membeli buku di toko dekat sekolah","Cuaca pagi itu sangat cerah dan menyenangkan","Pendidikan karakter merupakan pondasi utama dalam pembentukan kepribadian bangsa","Ibu memasak nasi goreng untuk sarapan pagi"], a:2},
+
+  {t:0, q:`Bacalah paragraf berikut!\n\n"Siti sangat senang mengikuti ekstrakulikuler paduan suara. Setiap Rabu sore, ia berlatih bersama teman-temannya. Suaranya yang merdu membuat pelatih sering memilihnya sebagai solois. Berkat ketekunannya berlatih, Siti berhasil meraih juara I lomba vokal tingkat kota."\n\nIde pokok paragraf tersebut adalah ...`,
+   o:["Siti berlatih setiap Rabu sore","Siti meraih juara I lomba vokal","Siti sangat senang mengikuti paduan suara","Suara Siti sangat merdu"], a:2},
+
+  {t:0, q:`Perhatikan kalimat-kalimat berikut!\n(1) Sayuran hijau mengandung banyak vitamin dan mineral.\n(2) Brokoli kaya akan vitamin C dan serat yang baik untuk pencernaan.\n(3) Bayam mengandung zat besi yang penting bagi tubuh.\n(4) Konsumsi sayuran hijau secara teratur terbukti meningkatkan imunitas.\n\nKalimat yang merupakan gagasan pokok adalah ...`,
+   o:["Kalimat (2)","Kalimat (3)","Kalimat (1)","Kalimat (4)"], a:2},
+
+  // ========================================================
+  // MATERI 2: UNSUR-UNSUR WAWANCARA (Soal 11–20)
+  // ========================================================
+  {t:1, q:`Bacalah kutipan wawancara berikut!\n\nWartawan: "Selamat pagi, Pak Hendra. Boleh saya mengetahui apa yang mendorong Bapak mendirikan usaha kerajinan tangan ini?"\nPak Hendra: "Selamat pagi. Awalnya saya melihat banyak pemuda di desa ini menganggur. Saya ingin menciptakan lapangan kerja bagi mereka."\n\nDalam kutipan wawancara di atas, yang berperan sebagai narasumber adalah ...`,
+   o:["Wartawan","Pak Hendra","Redaktur berita","Moderator acara"], a:1},
+
+  {t:1, q:`Perhatikan teks wawancara berikut!\n\nAyu: "Apa yang memotivasi Kak Rina untuk menjadi seorang guru?"\nKak Rina: "Saya percaya bahwa guru adalah profesi yang paling mulia. Melalui guru, masa depan bangsa dibentuk."\nAyu: "Apa suka dukanya menjadi seorang guru?"\nKak Rina: "Sukanya ketika melihat murid berhasil. Dukanya ketika ada murid yang malas belajar."\n\nUnsur wawancara yang bertugas mengajukan pertanyaan pada teks di atas adalah ...`,
+   o:["Kak Rina","Moderator","Ayu","Narasumber"], a:2},
+
+  {t:1, q:`Sebelum melakukan wawancara, seorang pewawancara sebaiknya melakukan hal-hal berikut, KECUALI ...`,
+   o:["Menentukan topik dan tujuan wawancara","Menyusun daftar pertanyaan yang akan diajukan","Mencari informasi awal tentang narasumber","Langsung merekam tanpa izin narasumber"], a:3},
+
+  {t:1, q:`Bacalah penggalan wawancara ini!\n\nReporter: "Pak Dokter, apa penyebab utama meningkatnya kasus demam berdarah belakangan ini?"\nDr. Susanto: "Curah hujan yang tinggi menyebabkan banyak genangan air. Genangan itu menjadi sarang nyamuk Aedes aegypti yang menjadi penular demam berdarah."\n\nKata tanya yang digunakan reporter untuk menggali PENYEBAB suatu kejadian adalah ...`,
+   o:["Apa","Siapa","Kapan","Mengapa / Apa penyebab"], a:3},
+
+  {t:1, q:`Seorang siswa hendak mewawancarai kepala sekolahnya tentang program unggulan sekolah. Pertanyaan yang PALING TEPAT untuk membuka wawancara adalah ...`,
+   o:["Kapan Bapak akan pensiun?","Berapa gaji Bapak sebagai kepala sekolah?","Apakah Bapak bersedia saya wawancarai mengenai program unggulan sekolah kita?","Mengapa Bapak tidak sering masuk kelas?"], a:2},
+
+  {t:1, q:`Perhatikan kutipan wawancara berikut!\n\nPewawancara: "Bagaimana cara Ibu membagi waktu antara pekerjaan dan keluarga?"\nNarasumber: "Saya selalu membuat jadwal harian. Pagi hari untuk keluarga, siang hingga sore untuk pekerjaan."\n\nKata tanya "Bagaimana" dalam wawancara tersebut bertujuan untuk menanyakan ...`,
+   o:["Identitas narasumber","Cara atau proses melakukan sesuatu","Alasan melakukan sesuatu","Waktu terjadinya peristiwa"], a:1},
+
+  {t:1, q:`Berikut ini adalah etika yang harus dijaga pewawancara saat wawancara berlangsung, KECUALI ...`,
+   o:["Mendengarkan jawaban narasumber dengan penuh perhatian","Mengajukan pertanyaan yang sopan dan terarah","Memotong jawaban narasumber sebelum selesai berbicara","Mengucapkan terima kasih di akhir wawancara"], a:2},
+
+  {t:1, q:`Bacalah teks berikut!\n\nWartawan: "Selamat sore, Bu Ani. Saya dengar ibu berhasil mengembangkan bisnis kue tradisional hingga ke luar negeri. Bagaimana kisah awalnya?"\nBu Ani: "Awalnya saya hanya berjualan di pasar. Namun, karena ada teman yang memesan untuk dikirim ke Malaysia, saya mulai berpikir lebih besar."\nWartawan: "Apa kendala terbesar yang Ibu hadapi dalam proses ekspor tersebut?"\nBu Ani: "Masalah perizinan dan kemasan yang harus memenuhi standar internasional."\n\nInformasi yang TIDAK terdapat dalam wawancara di atas adalah ...`,
+   o:["Bu Ani awalnya berjualan di pasar","Bu Ani pernah mengirim produknya ke Malaysia","Bu Ani menghadapi masalah perizinan dan kemasan","Bu Ani mendapat bantuan modal dari pemerintah"], a:3},
+
+  {t:1, q:`Urutan kegiatan wawancara yang paling tepat adalah ...`,
+   o:["Merekam jawaban → menyusun pertanyaan → menemui narasumber","Menentukan tujuan → menyusun pertanyaan → menemui narasumber → menyusun laporan","Menemui narasumber → menentukan tujuan → menyusun laporan","Menyusun laporan → menemui narasumber → menentukan tujuan"], a:1},
+
+  {t:1, q:`Bacalah teks wawancara berikut!\n\nFarhan: "Kak, sudah berapa lama Kakak menekuni hobi melukis ini?"\nKak Dani: "Sudah sekitar delapan tahun. Mulai dari kelas 4 SD sampai sekarang kuliah semester 6."\nFarhan: "Wah, luar biasa! Apakah Kakak pernah menjuarai lomba lukis?"\nKak Dani: "Alhamdulillah, sudah beberapa kali. Yang paling berkesan juara nasional dua tahun lalu."\n\nSimpulan yang tepat dari wawancara tersebut adalah ...`,
+   o:["Farhan adalah seorang mahasiswa seni","Kak Dani adalah pelukis berpengalaman yang berprestasi di bidang seni lukis","Kak Dani baru belajar melukis sejak masuk kuliah","Farhan dan Kak Dani sama-sama senang melukis"], a:1},
+
+  // ========================================================
+  // MATERI 3: STRUKTUR TEKS PROSEDUR (Soal 21–30)
+  // ========================================================
+  {t:2, q:`Bacalah teks prosedur berikut!\n\n"Cara Membuat Jus Alpukat yang Segar"\n\nBahan: 1 buah alpukat matang, 200 ml susu cair, 3 sdm gula pasir, es batu secukupnya.\n\nLangkah-langkah:\n1. Belah alpukat dan ambil dagingnya menggunakan sendok.\n2. Masukkan daging alpukat, susu cair, dan gula ke dalam blender.\n3. Blender hingga halus dan tercampur rata.\n4. Tuang ke dalam gelas dan tambahkan es batu.\n5. Jus alpukat segar siap dinikmati.\n\nBagian yang termasuk struktur 'Tujuan' pada teks prosedur di atas adalah ...`,
+   o:["Langkah nomor 1 hingga 5","Bagian bahan-bahan yang digunakan","Judul teks yaitu 'Cara Membuat Jus Alpukat yang Segar'","Kalimat terakhir 'Jus alpukat segar siap dinikmati'"], a:2},
+
+  {t:2, q:`Perhatikan teks prosedur acak berikut!\n(1) Oleskan pasta gigi secukupnya pada sikat gigi.\n(2) Bilas mulut dengan air bersih hingga bersih.\n(3) Ambil sikat gigi dan pasta gigi.\n(4) Sikat gigi selama dua menit secara merata ke seluruh permukaan gigi.\n(5) Gigi Anda kini bersih dan napas segar.\n\nUrutan langkah yang benar agar menjadi teks prosedur yang padu adalah ...`,
+   o:["(3)–(1)–(4)–(2)–(5)","(1)–(3)–(4)–(2)–(5)","(3)–(4)–(1)–(2)–(5)","(1)–(4)–(3)–(2)–(5)"], a:0},
+
+  {t:2, q:`Ciri kebahasaan yang paling dominan dalam teks prosedur adalah ...`,
+   o:["Menggunakan kata sifat yang banyak","Menggunakan kalimat perintah (imperatif) dan kata kerja aktif","Menggunakan kalimat tanya retoris","Menggunakan banyak majas perbandingan"], a:1},
+
+  {t:2, q:`Bacalah teks prosedur berikut!\n\n"Cara Menanam Cabai dalam Pot"\nTujuan: Panduan ini bertujuan agar pembaca dapat menanam cabai sendiri di rumah menggunakan pot.\n\nBahan dan alat: Bibit cabai, pot berdiameter 30 cm, tanah subur, pupuk organik, air.\n\nLangkah-langkah:\n1. Campurkan tanah dan pupuk organik dengan perbandingan 2:1.\n2. Masukkan campuran tanah ke dalam pot.\n3. Tanam bibit cabai sedalam 3 cm.\n4. Siram secukupnya dan letakkan di tempat yang terkena sinar matahari.\n5. Siram dua kali sehari dan beri pupuk setiap dua minggu sekali.\n\nBagian 'Bahan dan alat' dalam teks prosedur di atas termasuk ke dalam struktur ...`,
+   o:["Tujuan","Material (bahan/alat)","Langkah-langkah","Penutup"], a:1},
+
+  {t:2, q:`Kalimat mana yang paling tepat digunakan sebagai langkah dalam teks prosedur membuat teh?`,
+   o:["Teh sangat nikmat diminum di pagi hari","Saya suka sekali minum teh manis","Tuangkan air panas ke dalam cangkir yang sudah berisi kantong teh","Mengapa teh bisa membuat tubuh segar?"], a:2},
+
+  {t:2, q:`Bacalah teks berikut!\n\n"Cara Mendaftar Akun Email"\n1. Buka situs penyedia layanan email.\n2. Klik tombol 'Buat Akun'.\n3. Isi formulir dengan nama lengkap, nama pengguna, dan kata sandi.\n4. Masukkan nomor HP untuk verifikasi.\n5. Klik 'Berikutnya' dan ikuti petunjuk verifikasi.\n6. Akun email Anda telah berhasil dibuat.\n\nKalimat keenam pada teks di atas merupakan bagian dari struktur teks prosedur yaitu ...`,
+   o:["Tujuan","Langkah-langkah","Penutup","Material"], a:2},
+
+  {t:2, q:`Kata penghubung yang biasa digunakan dalam teks prosedur untuk menunjukkan URUTAN WAKTU adalah ...`,
+   o:["Tetapi, namun, akan tetapi","Karena, sebab, oleh karena itu","Pertama, kemudian, setelah itu, selanjutnya, terakhir","Meskipun, walaupun, sungguhpun"], a:2},
+
+  {t:2, q:`Perhatikan teks prosedur berikut!\n\n"Cara Mencuci Tangan yang Benar"\n1. Basahi tangan dengan air mengalir.\n2. Tuangkan sabun dan gosok kedua telapak tangan.\n3. Gosok sela-sela jari dan punggung tangan.\n4. Bersihkan kuku dengan cara menggosokkan ujung jari ke telapak tangan.\n5. Bilas dengan air bersih dan keringkan menggunakan tisu atau handuk bersih.\n\nTeks prosedur di atas termasuk jenis prosedur ...`,
+   o:["Prosedur cara membuat sesuatu","Prosedur cara menggunakan alat","Prosedur cara melakukan suatu aktivitas","Prosedur cara memecahkan masalah"], a:2},
+
+  {t:2, q:`Mengapa dalam teks prosedur setiap langkah harus ditulis secara berurutan dan tidak boleh diacak?`,
+   o:["Agar teks terlihat lebih panjang dan formal","Karena urutan langkah menentukan keberhasilan hasil yang ingin dicapai","Agar pembaca tidak bosan membacanya","Tidak ada alasan khusus, boleh saja diacak"], a:1},
+
+  {t:2, q:`Bacalah teks prosedur berikut!\n\n"Cara Membuat Tempat Pensil dari Kaleng Bekas"\n\nBahan: 1 kaleng bekas berukuran sedang, cat warna-warni, kuas, vernis.\n\n1. Cuci kaleng bekas hingga bersih dan keringkan.\n2. Haluskan bagian tepi kaleng yang tajam menggunakan amplas.\n3. Cat permukaan kaleng dengan warna dasar dan biarkan kering.\n4. Tambahkan hiasan atau motif sesuai selera menggunakan cat lain.\n5. Setelah kering, lapisi dengan vernis agar cat lebih tahan lama.\n6. Tempat pensil unik dari kaleng bekas siap digunakan.\n\nManakah PERNYATAAN yang sesuai dengan isi teks prosedur di atas?`,
+   o:["Kita tidak perlu mengamplas kaleng sebelum dicat","Vernis digunakan di awal agar cat menempel lebih kuat","Kaleng harus dibersihkan terlebih dahulu sebelum dihias","Teks ini termasuk prosedur cara menggunakan alat"], a:2},
+
+  // ========================================================
+  // MATERI 4: TEKS PENGALAMAN PRIBADI (Soal 31–40)
+  // ========================================================
+  {t:3, q:`Bacalah teks berikut!\n\n"Hari Pertamaku di Sekolah Baru"\n\nNamaku Dina. Tiga bulan lalu, aku pindah ke kota ini mengikuti orang tua yang dipindahtugaskan. Rasanya gugup bukan main ketika pertama kali melangkah masuk ke kelas baru itu. Semua mata tertuju padaku. Namun, kekhawatiranku sirna ketika seorang gadis bernama Tari langsung menyapaku dengan senyuman. Ia memperkenalkan aku kepada teman-temannya. Sejak hari itu, aku merasa bersyukur punya teman sebaik Tari."\n\nSudut pandang yang digunakan dalam teks pengalaman pribadi di atas adalah ...`,
+   o:["Orang ketiga (dia/ia/mereka)","Orang kedua (kamu/Anda)","Orang pertama (aku/saya)","Campuran orang pertama dan ketiga"], a:2},
+
+  {t:3, q:`Perhatikan cuplikan teks berikut!\n\n"Pengalaman paling berkesan dalam hidupku adalah ketika aku dan keluarga berkemah di kaki Gunung Rinjani. Udara dingin menusuk tulang, tetapi justru itu yang membuat petualangan kami terasa luar biasa. Kami membangun tenda, memasak nasi goreng di atas kompor portable, dan menghabiskan malam sambil mengamati bintang-bintang yang sangat jelas terlihat."\n\nTeks di atas termasuk jenis teks ...`,
+   o:["Teks prosedur","Teks deskripsi tempat","Teks pengalaman pribadi","Teks laporan perjalanan resmi"], a:2},
+
+  {t:3, q:`Ciri khas yang membedakan teks pengalaman pribadi dengan teks nonfiksi lainnya adalah ...`,
+   o:["Menggunakan data dan statistik yang akurat","Berisi fakta nyata yang dialami langsung oleh penulis dan ditulis dari sudut pandang orang pertama","Ditulis oleh orang lain berdasarkan cerita penulis","Menggunakan bahasa formal dan baku"], a:1},
+
+  {t:3, q:`Bacalah teks pengalaman pribadi berikut!\n\n"Waktu itu aku duduk di kelas 5 SD. Tanpa sengaja, aku menjatuhkan dan memecahkan vas bunga milik Bu Guru. Jantungku berdegup kencang. Aku takut dimarahi. Namun, aku memilih untuk jujur dan mengakuinya. Ternyata Bu Guru tidak marah. Beliau malah memuji keberanianku karena mau berkata jujur. Sejak itu aku belajar bahwa kejujuran adalah nilai yang sangat berharga."\n\nPesan atau nilai yang ingin disampaikan penulis melalui teks pengalaman pribadi di atas adalah ...`,
+   o:["Jangan pernah menjatuhkan barang orang lain","Kejujuran adalah nilai yang sangat berharga dalam kehidupan","Guru tidak boleh menyimpan vas bunga di kelas","Siswa kelas 5 SD sering membuat kesalahan"], a:1},
+
+  {t:3, q:`Kalimat mana yang paling tepat untuk mengawali sebuah teks pengalaman pribadi?`,
+   o:["Tokoh dalam cerita ini adalah seorang anak bernama Andi yang tinggal di desa.","Hari Minggu lalu adalah hari yang tidak akan pernah kulupakan seumur hidup.","Diketahui bahwa kecelakaan lalu lintas meningkat 30% pada tahun ini.","Berdasarkan data yang ada, dapat disimpulkan bahwa siswa berprestasi lebih banyak di kota."], a:1},
+
+  {t:3, q:`Bacalah teks berikut!\n\n"Saya pernah mengalami pengalaman memalukan ketika tampil di depan ratusan orang. Saat itu, saya ditunjuk mewakili kelas untuk berpidato di acara Hari Kemerdekaan. Ketika naik ke panggung dan melihat banyaknya penonton, lutut saya gemetar hebat. Tiba-tiba, naskah pidato yang sudah saya hafal seolah lenyap dari ingatan. Saya berdiri terpaku selama beberapa detik. Untungnya, Pak Guru memberikan isyarat penyemangat. Saya pun berhasil menyelesaikan pidato meski tidak sempurna."\n\nStruktur teks pengalaman pribadi yang tepat untuk cuplikan di atas adalah ...`,
+   o:["Orientasi (pengenalan) → Komplikasi (masalah) → Resolusi (penyelesaian)","Tujuan → Langkah-langkah → Penutup","Pembuka → Isi → Penutup","Pendahuluan → Isi → Simpulan"], a:0},
+
+  {t:3, q:`Penggunaan kata-kata berikut menunjukkan bahwa sebuah teks adalah teks pengalaman pribadi, KECUALI ...`,
+   o:["Saya merasa sangat bahagia ketika ...","Aku tidak akan melupakan momen itu ...","Penelitian ini dilakukan untuk mengetahui ...","Waktu itu, kami sedang bermain di halaman rumah ..."], a:2},
+
+  {t:3, q:`Bacalah kutipan teks pengalaman pribadi berikut!\n\n"Ramadan tahun lalu adalah Ramadan yang paling berkesan bagiku. Saat itu, aku bersama teman-teman memutuskan untuk membagikan takjil gratis kepada pengendara di pinggir jalan. Kami mengumpulkan uang dari hasil tabungan sendiri selama dua minggu. Melihat wajah-wajah orang yang menerima takjil dari kami, hatiku terasa hangat dan penuh syukur. Itu adalah pelajaran hidup terbaik tentang berbagi yang pernah aku alami."\n\nKata yang menunjukkan keterangan WAKTU dalam teks di atas adalah ...`,
+   o:["Berkesan, hangat, syukur","Ramadan tahun lalu, saat itu, selama dua minggu","Teman-teman, pengendara, pinggir jalan","Kami, aku, orang-orang"], a:1},
+
+  {t:3, q:`Teks pengalaman pribadi umumnya ditulis dengan tujuan ...`,
+   o:["Memberi petunjuk kepada pembaca cara melakukan sesuatu","Meyakinkan pembaca agar setuju dengan pendapat penulis","Menceritakan peristiwa nyata yang dialami penulis dan berbagi pelajaran hidup darinya","Mendeskripsikan suatu tempat atau benda secara objektif"], a:2},
+
+  {t:3, q:`Perhatikan teks berikut!\n\n"Aku dan ayah pergi memancing ke sungai dekat desa nenek. Pagi itu, udara sangat sejuk. Kami duduk di tepi sungai sambil menunggu umpan dimakan ikan. Selama dua jam menunggu, tidak satu pun ikan yang menyentuh kailku. Namun, ayah dengan sabar mengajariku cara memegang joran yang benar. Walaupun pulang tanpa ikan, pengalaman itu mengajariku arti kesabaran."\n\nApa TEMA utama yang terdapat dalam teks pengalaman pribadi di atas?`,
+   o:["Cara memancing yang benar di sungai","Keindahan alam pedesaan saat pagi hari","Pengalaman bersama ayah yang mengajarkan nilai kesabaran","Jenis-jenis ikan yang hidup di sungai"], a:2},
+
+  // ========================================================
+  // MATERI 5: STRUKTUR & UNSUR PIDATO (Soal 41–48)
+  // ========================================================
+  {t:4, q:`Bacalah kutipan pidato berikut!\n\n"Assalamualaikum warahmatullahi wabarakatuh. Yang terhormat Bapak Kepala Sekolah, Bapak dan Ibu Guru yang saya hormati, serta teman-teman yang saya banggakan. Pertama-tama, marilah kita panjatkan puji syukur ke hadirat Tuhan Yang Maha Esa yang telah memberikan kita kesehatan sehingga dapat berkumpul pada hari yang berbahagia ini."\n\nKutipan tersebut merupakan bagian dari struktur pidato yaitu ...`,
+   o:["Bagian isi pidato","Bagian penutup pidato","Bagian pembuka pidato","Bagian simpulan pidato"], a:2},
+
+  {t:4, q:`Seorang siswa menyampaikan pidato dengan cara menulis naskah lengkap terlebih dahulu, lalu membacanya saat tampil di depan umum. Metode pidato yang digunakan adalah metode ...`,
+   o:["Impromptu","Memoriter","Ekstemporan","Naskah (membaca teks)"], a:3},
+
+  {t:4, q:`Perhatikan kutipan pidato berikut!\n\n"... Oleh karena itu, marilah kita bersama-sama menjaga kebersihan lingkungan sekolah kita. Mulailah dari hal kecil: membuang sampah pada tempatnya. Dengan lingkungan bersih, proses belajar kita akan lebih nyaman dan menyenangkan. Demikian yang dapat saya sampaikan. Mohon maaf atas segala kekurangan. Terima kasih atas perhatian Bapak, Ibu, dan teman-teman sekalian. Wassalamualaikum warahmatullahi wabarakatuh."\n\nKutipan pidato di atas merupakan bagian ...`,
+   o:["Pembuka pidato","Isi pidato","Penutup pidato","Salam pembuka"], a:2},
+
+  {t:4, q:`Bacalah teks pidato berikut!\n\n"Teman-teman yang saya cintai, kita semua tahu bahwa penggunaan ponsel yang berlebihan dapat mengganggu konsentrasi belajar. Penelitian menunjukkan bahwa siswa yang menggunakan ponsel lebih dari empat jam sehari memiliki nilai akademik yang lebih rendah. Oleh karena itu, saya mengajak kita semua untuk lebih bijak menggunakan ponsel. Gunakanlah untuk hal-hal yang positif dan bermanfaat bagi masa depan kita."\n\nTujuan utama pidato di atas adalah ...`,
+   o:["Memberikan informasi tentang hasil penelitian ponsel","Menghibur teman-teman dengan kisah lucu","Mempengaruhi dan mengajak pendengar untuk bijak menggunakan ponsel","Menceritakan pengalaman penulis menggunakan ponsel"], a:2},
+
+  {t:4, q:`Hal-hal berikut yang harus diperhatikan dalam penyampaian pidato secara lisan adalah ...`,
+   o:["Intonasi, volume suara, ekspresi wajah, dan gestur tubuh","Panjang naskah, warna pakaian, dan jenis sepatu yang dipakai","Tinggi badan, warna rambut, dan lama waktu berpidato","Jumlah kata, kemewahan pakaian, dan besar panggung"], a:0},
+
+  {t:4, q:`Perhatikan bagian-bagian pidato berikut!\n(P) Salam penutup dan ucapan terima kasih\n(Q) Isi pidato (pokok-pokok pikiran)\n(R) Salam pembuka, sapaan, dan ucapan syukur\n\nUrutan struktur pidato yang benar adalah ...`,
+   o:["(P) – (Q) – (R)","(Q) – (R) – (P)","(R) – (Q) – (P)","(R) – (P) – (Q)"], a:2},
+
+  {t:4, q:`Bacalah penggalan pidato berikut!\n\n"Hadirin yang saya hormati, perkenankanlah saya menyampaikan sebuah kisah. Ada seorang petani tua yang setiap hari bekerja keras di ladangnya. Ia tidak pernah mengeluh meskipun hasil panennya tidak seberapa. Ketika ditanya rahasianya, ia menjawab, 'Yang penting saya terus berusaha dan bersyukur.' Dari kisah ini, kita belajar bahwa semangat dan rasa syukur adalah kunci kebahagiaan sejati."\n\nMetode penyampaian pesan yang digunakan dalam penggalan pidato tersebut adalah ...`,
+   o:["Membaca data dan statistik","Menyampaikan pesan melalui kisah atau cerita (metode ilustrasi)","Membacakan naskah secara langsung","Impromptu tanpa persiapan"], a:1},
+
+  {t:4, q:`Salam pembuka yang tepat untuk memulai sebuah pidato dalam acara formal adalah ...`,
+   o:["'Eh, halo semuanya! Apa kabar?'","'Assalamualaikum warahmatullahi wabarakatuh. Selamat pagi, salam sejahtera bagi kita semua.'","'Oke teman-teman, mulai ya?'","'Bismillah, langsung aja ya saya mau ngomong sesuatu.'"], a:1},
+
+  // ========================================================
+  // MATERI 6: UNSUR-UNSUR DRAMA (Soal 49–55)
+  // ========================================================
+  {t:5, q:`Bacalah penggalan naskah drama berikut!\n\nRina: "Beni, mengapa kamu tampak murung hari ini? Apa yang terjadi?"\nBeni: (menundukkan kepala) "Tadi pagi aku bertengkar dengan adikku. Aku menyesal sudah membuatnya menangis."\nRina: "Jangan larut dalam penyesalan. Lebih baik kamu minta maaf sekarang sebelum semakin berlarut-larut."\nBeni: (menatap Rina) "Kamu benar, Rina. Terima kasih sudah mengingatkanku."\n\nTeks yang dicetak miring dan berada di dalam tanda kurung, seperti '(menundukkan kepala)', dalam naskah drama disebut ...`,
+   o:["Dialog","Prolog","Petunjuk pentas (kramagung)","Epilog"], a:2},
+
+  {t:5, q:`Perhatikan penggalan drama berikut!\n\n[Di sebuah dapur rumah sederhana. Pagi hari, sinar matahari masuk melalui jendela. Ibu sedang memasak sementara anak bungsunya, Sari, baru turun dari kamar.]\n\nBagian dalam tanda kurung siku di atas menunjukkan unsur drama yang disebut ...`,
+   o:["Dialog tokoh","Epilog cerita","Latar (setting) tempat, waktu, dan suasana","Prolog cerita"], a:2},
+
+  {t:5, q:`Tokoh dalam sebuah drama yang berwatak jahat, senang menghalangi tujuan tokoh utama, dan menjadi pemicu konflik disebut tokoh ...`,
+   o:["Protagonis","Antagonis","Tritagonis","Figuran"], a:1},
+
+  {t:5, q:`Bacalah penggalan drama berikut!\n\nAli: "Kita harus segera menolong desa ini dari banjir, Pak!"\nPak Lurah: "Aku tahu, Ali. Tapi kita kekurangan karung dan pasir."\nAli: "Saya sudah menghubungi relawan dari kota. Mereka siap membantu malam ini!"\nPak Lurah: "Syukurlah! Segera atur koordinasinya!"\n\nKonflik yang terjadi dalam penggalan drama di atas adalah ...`,
+   o:["Konflik antara Ali dan Pak Lurah tentang kepemimpinan","Konflik antara manusia dengan alam berupa banjir yang melanda desa","Konflik antara Ali dengan relawan dari kota","Konflik tentang siapa yang harus membeli karung"], a:1},
+
+  {t:5, q:`Bagian drama yang berisi penjelasan atau pengantar tentang latar belakang cerita sebelum cerita utama dimulai disebut ...`,
+   o:["Epilog","Konflik","Dialog","Prolog"], a:3},
+
+  {t:5, q:`Bacalah penggalan drama berikut!\n\n[PROLOG: Di sebuah kampung kecil, hiduplah dua sahabat karib bernama Joko dan Danu. Mereka bersahabat sejak kecil. Namun, sebuah kesalahpahaman kecil yang tidak segera diselesaikan perlahan merenggangkan persahabatan mereka ...]\n\nJoko: "Danu, kenapa kamu tidak mengajakku ikut lomba itu? Aku merasa dikhianati!"\nDanu: "Aku tidak sengaja, Jok! Aku pikir kamu tidak berminat karena kemarin kamu tidak hadir rapat."\nJoko: (berbalik memunggungi Danu) "Alasan saja!"\n\nBerdasarkan watak yang ditunjukkan dalam penggalan drama tersebut, Joko dapat digambarkan sebagai tokoh yang ...`,
+   o:["Sabar dan pengertian","Mudah tersinggung dan sulit memaafkan","Pengecut dan pemalu","Pemberani dan bijaksana"], a:1},
+
+  {t:5, q:`Perhatikan urutan alur drama berikut!\n(1) Eksposisi – pengenalan tokoh dan latar\n(2) Komplikasi – munculnya konflik\n(3) Klimaks – puncak ketegangan konflik\n(4) Resolusi – penyelesaian konflik\n(5) Konklusi – akhir cerita atau simpulan\n\nUrutan alur drama yang benar dari awal hingga akhir adalah ...`,
+   o:["(2)–(1)–(3)–(5)–(4)","(1)–(2)–(3)–(4)–(5)","(3)–(1)–(2)–(5)–(4)","(1)–(3)–(2)–(4)–(5)"], a:1},
+
+];
+
+const LABELS = ['A','B','C','D'];
+const TOTAL = QUESTIONS.length; // 55
+let answers = new Array(TOTAL).fill(null);
+let submitted = false;
+let currentTopic = -1;
+let timerInterval = null;
+let secondsLeft = 90 * 60;
+
+// ---- TIMER ----
+function startTimer() {
+  timerInterval = setInterval(() => {
+    secondsLeft--;
+    const m = Math.floor(secondsLeft / 60);
+    const s = secondsLeft % 60;
+    const el = document.getElementById('timer');
+    el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    if (secondsLeft <= 300) el.classList.add('warning');
+    if (secondsLeft <= 0) { clearInterval(timerInterval); doSubmit(); }
+  }, 1000);
+}
+
+// ---- PAGES ----
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if (name==='key') renderKeyTable();
+}
+
+// ---- TOPIC NAV ----
+function renderTopicNav() {
+  const nav = document.getElementById('topic-nav');
+  let html = `<button class="topic-btn ${currentTopic===-1?'active':''}" onclick="setTopic(-1)">
+    <span class="topic-dot" style="background:#888"></span>Semua Soal
+    <span class="topic-count">${TOTAL}</span></button>`;
+  TOPICS.forEach((tp, i) => {
+    const count = QUESTIONS.filter(q=>q.t===i).length;
+    html += `<button class="topic-btn ${currentTopic===i?'active':''}" onclick="setTopic(${i})">
+      <span class="topic-dot" style="background:${tp.color}"></span>${tp.name}
+      <span class="topic-count">${count}</span></button>`;
+  });
+  nav.innerHTML = html;
+}
+
+function setTopic(i) {
+  currentTopic = i;
+  renderTopicNav();
+  renderQuestions();
+}
+
+// ---- Q GRID ----
+function renderGrid() {
+  const el = document.getElementById('q-grid');
+  let html = '';
+  QUESTIONS.forEach((q,i) => {
+    let cls = 'q-dot';
+    if (submitted) {
+      if (answers[i] === null) cls += ' skipped';
+      else if (answers[i] === q.a) cls += ' correct-dot';
+      else cls += ' wrong-dot';
+    } else if (answers[i] !== null) cls += ' done';
+    html += `<div class="${cls}" onclick="scrollToQ(${i})" title="Soal ${i+1}">${i+1}</div>`;
+  });
+  el.innerHTML = html;
+}
+
+function scrollToQ(i) {
+  const el = document.getElementById('qcard-'+i);
+  if (el) {
+    setTopic(-1);
+    showPage('quiz');
+    setTimeout(()=>{ el.scrollIntoView({behavior:'smooth',block:'center'}); },80);
+  }
+}
+
+// ---- RENDER QUESTIONS ----
+function renderQuestions() {
+  const wrap = document.getElementById('questions-wrap');
+  const qs = currentTopic === -1
+    ? QUESTIONS.map((q,i)=>({...q,idx:i}))
+    : QUESTIONS.map((q,i)=>({...q,idx:i})).filter(q=>q.t===currentTopic);
+
+  let html = '';
+  let lastTopic = -1;
+  qs.forEach(({t,q,o,a,idx}) => {
+    if (t !== lastTopic) {
+      const tp = TOPICS[t];
+      html += `<div class="section-header" style="background:${tp.bg};border-left-color:${tp.color};">
+        <h2 style="color:${tp.color};">Materi ${t+1}: ${tp.name}</h2>
+        <span style="color:${tp.color};">${QUESTIONS.filter(x=>x.t===t).length} soal</span>
+      </div>`;
+      lastTopic = t;
+    }
+    let cardCls = 'q-card';
+    let statusText = '';
+    if (submitted) {
+      if (answers[idx] === null)       { cardCls += ' skipped'; statusText = 'Tidak Dijawab'; }
+      else if (answers[idx] === a)      { cardCls += ' correct'; statusText = '✓ Benar'; }
+      else                              { cardCls += ' wrong';   statusText = '✗ Salah'; }
+    } else if (answers[idx] !== null)   { cardCls += ' answered'; }
+
+    html += `<div class="${cardCls}" id="qcard-${idx}">
+      <div class="q-meta">
+        <span class="q-num">Soal ${idx+1}</span>
+        <span class="q-status">${statusText}</span>
+      </div>
+      <div class="q-text">${formatQ(q)}</div>
+      <div class="options">`;
+
+    o.forEach((opt, oi) => {
+      let cls = 'opt';
+      if (submitted) {
+        if (oi === a)                          cls += ' correct-opt';
+        else if (answers[idx] === oi && oi !== a) cls += ' wrong-opt';
+        else if (answers[idx] === oi)          cls += ' selected';
+      } else if (answers[idx] === oi) cls += ' selected';
+
+      const clickFn = submitted ? '' : `onclick="pickAnswer(${idx},${oi})"`;
+      html += `<div class="${cls}" ${clickFn}>
+        <span class="opt-lbl">${LABELS[oi]}.</span>
+        <span>${opt}</span>
+        <span class="opt-icon"></span>
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+  wrap.innerHTML = html;
+}
+
+function formatQ(text) {
+  return text
+    .replace(/\n\n"(.+?)"/gs, (m,p1) => `\n<span class="excerpt">"${p1}"</span>`)
+    .replace(/\n/g,'<br>');
+}
+
+// ---- PICK ANSWER ----
+function pickAnswer(qIdx, optIdx) {
+  if (submitted) return;
+  answers[qIdx] = optIdx;
+  updateProgress();
+  renderGrid();
+  const card = document.getElementById('qcard-'+qIdx);
+  if (!card) return;
+  card.className = 'q-card answered';
+  const opts = card.querySelectorAll('.opt');
+  opts.forEach((el,i) => {
+    el.className = 'opt' + (i===optIdx?' selected':'');
+    el.onclick = () => pickAnswer(qIdx, i);
+  });
+}
+
+// ---- PROGRESS ----
+function updateProgress() {
+  const done = answers.filter(a=>a!==null).length;
+  document.getElementById('prog-count').textContent = `${done} / ${TOTAL}`;
+  document.getElementById('prog-fill').style.width = (done/TOTAL*100)+'%';
+}
+
+// ---- SUBMIT ----
+function confirmSubmit() {
+  const done = answers.filter(a=>a!==null).length;
+  if (done < TOTAL) {
+    const ok = confirm(`Masih ada ${TOTAL-done} soal yang belum dijawab.\nApakah yakin ingin mengumpulkan jawaban?`);
+    if (!ok) return;
+  }
+  doSubmit();
+}
+
+function doSubmit() {
+  if (submitted) return;
+  submitted = true;
+  clearInterval(timerInterval);
+  document.getElementById('submit-btn').textContent = 'Lihat Pembahasan';
+  document.getElementById('submit-btn').onclick = () => { showPage('quiz'); renderQuestions(); };
+
+  let correct=0, wrong=0, skip=0;
+  QUESTIONS.forEach((q,i)=>{
+    if (answers[i]===null) skip++;
+    else if (answers[i]===q.a) correct++;
+    else wrong++;
+  });
+  const score = Math.round(correct/TOTAL*100);
+
+  document.getElementById('r-score').textContent = score;
+  document.getElementById('r-correct').textContent = correct;
+  document.getElementById('r-wrong').textContent = wrong;
+  document.getElementById('r-skip').textContent = skip;
+
+  let title, msg;
+  if (score>=90)      { title='Luar Biasa! 🏆'; msg='Kamu menguasai semua materi dengan sangat baik. Pertahankan!'; }
+  else if (score>=80) { title='Sangat Bagus! 🌟'; msg='Hasil yang sangat memuaskan. Tinggal sedikit lagi sempurna.'; }
+  else if (score>=70) { title='Bagus! 👍'; msg='Kamu sudah menguasai sebagian besar materi. Terus semangat!'; }
+  else if (score>=60) { title='Cukup Baik 📚'; msg='Ada beberapa materi yang perlu dipelajari lagi. Jangan menyerah!'; }
+  else                { title='Perlu Belajar Lebih Giat 💪'; msg='Pelajari kembali materi yang belum dikuasai dan coba lagi.'; }
+  document.getElementById('r-title').textContent = title;
+  document.getElementById('r-msg').textContent = msg;
+
+  let breakdownHtml = '';
+  TOPICS.forEach((tp, ti) => {
+    const qs = QUESTIONS.map((q,i)=>({...q,idx:i})).filter(q=>q.t===ti);
+    const tc = qs.filter(q=>answers[q.idx]===q.a).length;
+    const pct = Math.round(tc/qs.length*100);
+    breakdownHtml += `<div class="breakdown-row">
+      <span class="breakdown-name">${tp.name}</span>
+      <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width:${pct}%;background:${tp.color}"></div></div>
+      <span class="breakdown-pct" style="color:${tp.color}">${tc}/${qs.length}</span>
+    </div>`;
+  });
+  document.getElementById('breakdown-list').innerHTML = breakdownHtml;
+
+  renderGrid();
+  showPage('result');
+  toast('Jawaban berhasil dikumpulkan!');
+}
+
+function showReview() {
+  showPage('quiz');
+  renderQuestions();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ---- ANSWER KEY ----
+function renderKeyTable() {
+  const tbody = document.getElementById('key-tbody');
+  let html = '';
+  QUESTIONS.forEach((q,i) => {
+    const tp = TOPICS[q.t];
+    html += `<tr>
+      <td style="font-weight:700;color:var(--muted);font-size:12px;">${i+1}</td>
+      <td><span class="key-topic-badge" style="background:${tp.bg};color:${tp.color}">${tp.name}</span></td>
+      <td><span class="key-ans">${LABELS[q.a]}</span></td>
+      <td style="color:var(--muted);font-size:12px;">${q.o[q.a]}</td>
+    </tr>`;
+  });
+  tbody.innerHTML = html;
+}
+
+// ---- RESET ----
+function confirmReset() {
+  const ok = confirm('Yakin ingin mengulang ujian? Semua jawaban akan dihapus.');
+  if (!ok) return;
+  answers = new Array(TOTAL).fill(null);
+  submitted = false;
+  secondsLeft = 90*60;
+  clearInterval(timerInterval);
+  document.getElementById('timer').textContent = '90:00';
+  document.getElementById('timer').classList.remove('warning');
+  document.getElementById('submit-btn').textContent = 'Kumpulkan Jawaban';
+  document.getElementById('submit-btn').onclick = confirmSubmit;
+  currentTopic = -1;
+  updateProgress();
+  renderGrid();
+  renderTopicNav();
+  renderQuestions();
+  showPage('quiz');
+  startTimer();
+  toast('Ujian direset. Semangat!');
+}
+
+// ---- TOAST ----
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2500);
+}
+
+// ---- INIT ----
+renderTopicNav();
+renderQuestions();
+renderGrid();
+updateProgress();
+startTimer();
+</script>
+</body>
+</html>
